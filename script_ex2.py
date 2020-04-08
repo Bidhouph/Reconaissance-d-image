@@ -93,6 +93,35 @@ def dist(A,B):
     else:
         return None
 
+    
+### Fonction qui trace l'histogramme 3d et renvoie l'erreur
+def error(P,seuil):
+    if seuil==3:
+        Ma=seuil3(prod(M,Syn[i]),sCoef)
+    elif seuil==2:
+        Ma=seuil2(prod(M,Syn[i]),sCoef)
+    else:
+        Ma=seuil(prod(M,Syn[i]),sCoef)
+    X=[]
+    Y=[]
+    Z=[]
+    Ms=[]
+    Er=0
+    for x in range(6):
+        for y in range(6):
+            X.append(x)
+            Y.append(y)
+            Z.append(0)
+            Ms.append(Ma[x][y])
+            if x==y:
+                Er+=(Ma[x][y]-1)**2
+            else:
+                Er+=(Ma[x][y])**2
+    fig = plt.figure()
+    ax1 = fig.add_subplot(111, projection='3d')
+    ax1.bar3d(X,Y,Z,np.ones(36),np.ones(36),Ms)
+    return Er
+
 ### Entrees M
 
 M=[] # M : [ 1, A, C, O, P, U]
